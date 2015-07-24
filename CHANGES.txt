@@ -1,6 +1,11 @@
 Changelog
 =========
 
+Version 0.8.2.1
+-------------
+
+- Add oracle db support
+
 Version 0.8.2
 -------------
 

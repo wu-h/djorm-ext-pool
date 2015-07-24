@@ -115,10 +115,22 @@ def patch_sqlite3():
         sqlite3_base.Database = manage(sqlite3_base._Database, **POOL_SETTINGS)
 
 
+def patch_oracle():
+    try:
+        from django.db.backends.oracle import base as oracle_base
+    except (ImproperlyConfigured, ImportError) as e:
+        return
+
+    if not hasattr(oracle_base, "_Database"):
+        oracle_base._Database = oracle_base.Database
+        oracle_base.Database = manage(oracle_base._Database, **POOL_SETTINGS)
+
+
 def patch_all():
     patch_mysql()
     patch_postgresql()
     patch_sqlite3()
+    patch_oracle()
 
 
 patch_all()
